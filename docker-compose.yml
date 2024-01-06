@@ -1,0 +1,53 @@
+version: '3.8'
+
+######### Services ###################################
+
+services:
+  # MySQL database container
+  mysql:
+    build:
+      context: .docker/mysql
+      dockerfile: Dockerfile
+    volumes:
+      # Database volume
+      - database:/var/lib/mysql
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - 3307:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=app
+      - MYSQL_USER=app
+      - MYSQL_PASSWORD=app
+
+  adminer:
+    image: adnan007/adminer
+    restart: always
+    ports:
+      - 8082:8080
+    environment:
+      - ADMINER_DEFAULT_DRIVER=server
+      - ADMINER_DEFAULT_SERVER=mysql
+      - ADMINER_DEFAULT_USERNAME=app
+      - ADMINER_DEFAULT_PASSWORD=app
+      - ADMINER_DEFAULT_DB=app
+
+  app:
+    image: trust-review_client:development
+    build:
+      context: .docker/app
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www/app
+    ports:
+      - 3000:3000
+    depends_on:
+      - mysql
+      
+######### Volumes ###################################
+
+volumes:
+  database:
+    driver: local
+    
