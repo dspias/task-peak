@@ -55,9 +55,17 @@ next:
 # Database
 #-----------------------------------------------------------
 
-# Run database migrations
+# Run database push
 db-push:
 	docker-compose exec app npx prisma db push
+
+# Run database migrations
+db-generate:
+	docker-compose exec app npx prisma generate
+
+# Run prisma studio
+db-studio:
+	docker-compose exec app npx prisma studio
 
 #-----------------------------------------------------------
 # Dependencies
@@ -79,7 +87,7 @@ env:
 
 
 # Install the environment
-install: build env npm-install rc
+install: build env npm-install db-push db-generate rc
 
 
 #-----------------------------------------------------------
