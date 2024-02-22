@@ -59,6 +59,10 @@ next:
 db-push:
 	docker-compose exec app npx prisma db push
 
+# Run database reset
+db-reset:
+	docker-compose exec app npx prisma migrate reset
+
 # Run database migrations
 db-generate:
 	docker-compose exec app npx prisma generate
@@ -66,6 +70,9 @@ db-generate:
 # Run prisma studio
 db-studio:
 	docker-compose exec app npx prisma studio
+
+# Run reset and push
+db-rp: db-reset db-push
 
 #-----------------------------------------------------------
 # Dependencies
