@@ -12,7 +12,9 @@ export const Navbar = () => {
             <Link href="/sign-in">Login</Link>
           </Button>
           <Button size="sm" asChild>
-            <Link href="/sign-up">Get {process.env.APP_NAME} free</Link>
+            <Link href="/sign-up">
+              Get {process.env.NEXT_PUBLIC_APP_NAME} free
+            </Link>
           </Button>
         </div>
       </div>

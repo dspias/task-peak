@@ -44,6 +44,17 @@ services:
       - 3000:3000
     depends_on:
       - mysql
+  
+  # stripe:
+  #   image: stripe/stripe-cli:latest
+  #   command: listen --forward-to http://app:3000/api/webhook/
+  #   depends_on:
+  #     - app
+  #   environment:
+  #     - STRIPE_API_KEY=${STRIPE_API_KEY}
+  #     - STRIPE_DEVICE_NAME=app_docker
+  #   env_file:
+  #   - .env
       
 ######### Volumes ###################################
 
